@@ -1,34 +1,39 @@
 #include <iostream>
 #include <string>
-#include <cmath>
 
-int stringIntValue(const std::string& binario) {
+/*Write a function that receives a string containing a 16-bit binary integer. The function must
+return the string’s integer value.*/
 
-    int soma = 0;
+int BinaryStringDecCon(const std::string& binaryStr) {
 
-    for (int i = 0; i < binario.size(); i++) {
+    int placeValue = 1;
+    int result = 0;
 
-        char bitAtual = binario[i];
-        
+    if (binaryStr.size() == 16) {
+        for (unsigned i = 0; i < binaryStr.size(); i++) {
+            char currentBitChar = binaryStr[binaryStr.size() - i - 1];
 
-        if (bitAtual == '1') {
-            int expoente = binario.size() - 1 - i;
- 
-            soma += static_cast<int>(pow(2, expoente));
+            if (currentBitChar == '1') {
+                result += placeValue;
+
+            }
+            else if(currentBitChar != '0' && currentBitChar != '1') {
+                return 0;
+            }
+            placeValue += placeValue;
         }
     }
-    
-    return soma;
+    return result;
 }
 
 
 int main() {
 
 
-	std::string s1 = "1000000000000101";
-	int valor = stringIntValue(s1);
+	std::string binaryStr = "0000000000000111";
+	int decValue = BinaryStringDecCon(binaryStr);
 
-	std::cout << "O valor e: " << valor << '\n';
+	std::cout << "O valor e: " << decValue << '\n';
 
 	return 0;
 }
