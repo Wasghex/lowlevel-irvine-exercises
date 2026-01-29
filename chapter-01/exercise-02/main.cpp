@@ -1,94 +1,56 @@
 #include <iostream>
 #include <string>
-#include <cmath>
 
-long long stringIntValue(const std::string& binario) {
 
-    long long soma = 0;
-    int numVezes = 0;
+/*Write a function that receives a string containing a 32-bit hexadecimal integer. The function
+must return the string’s integer value.*/
 
-    for (int i = 0; i < binario.size(); i++) {
+unsigned long convertStrHexForInt(const std::string& hexStr) {
 
-        char bitAtual = binario[i];
+    unsigned int num = 1;
+    unsigned long result = 0;
+    unsigned long powerI = 1;
 
-            int expoente = binario.size() - 1 - i;
-            switch (bitAtual) {
-            case '1':
-                numVezes = 1;
-                break;
+    if (hexStr.size() == 8) {
+        for (unsigned int i = 0; i < hexStr.size(); i++) {
 
-            case '2':
-                numVezes = 2;
-                break;
 
-            case '3':
-                numVezes = 3;
-                break;
-            case '4':
-                numVezes = 4;
-                break;
 
-            case '5':
-                numVezes = 5;
-                break;
+            if (hexStr[hexStr.size() - 1 - i] <= 57 && hexStr[hexStr.size() - 1 - i] >= 48) {
 
-            case '6':
-                numVezes = 6;
-                break;
-            case '7':
-                numVezes = 7;
-                break;
+                num = hexStr[hexStr.size() - 1 - i] - '0';
 
-            case '8':
-                numVezes = 8;
-                break;
-
-            case '9':
-                numVezes = 9;
-                break;
-            case 'A':
-                numVezes = 10;
-                break;
-
-            case 'B':
-                numVezes = 11;
-                break;
-
-            case 'C':
-                numVezes = 12;
-                break;
-            case 'D':
-                numVezes = 13;
-                break;
-
-            case 'E':
-                numVezes = 14;
-                break;
-
-            case 'F':
-                numVezes = 15;
-                break;
-
-            default:
-                numVezes = 0;
-                break;
             }
-            long long potenciaXNumVezes = pow(16, expoente) * numVezes;
-            soma += potenciaXNumVezes;
-        
-    }
+            else if (hexStr[hexStr.size() - 1 - i] <= 70 && hexStr[hexStr.size() - 1 - i] >= 65) {
 
-    return soma;
+                num = hexStr[hexStr.size() - 1 - i] - 'A' + 10;
+
+            }
+            else {
+                return 0;
+            }
+
+            if (i >= 1) {
+                powerI *= 16;
+            }
+            
+            result += powerI * num;
+            
+        }
+    }
+    else {
+        return result;
+    }
+    return result;
 }
 
 
 int main() {
 
+    std::string hexStrValue = "FFFFFFFF";
+    unsigned long valueConverted = convertStrHexForInt(hexStrValue);
 
-    std::string s1 = "10";
-    long long valor = stringIntValue(s1);
-
-    std::cout << "O valor e: " << valor << '\n';
+    std::cout << "O valor e: " << valueConverted << '\n';
 
     return 0;
 }
