@@ -1,102 +1,95 @@
 #include <iostream>
 #include <string>
 
-std::string conversionHexForDec(int integerDecValue) {
+std::string conversionDecToHex(int integerDecValue) {
 
-	std::string returnConversionHexForDec;
-	std::string returnReverseConversionHexForDec;
-	int molde{ 0 };
+	std::string decimalToHex;
+	std::string reverseDecimalToHex;
+	int remainder{ 0 };
 
-	   while ( integerDecValue != 0) {
+	   while (integerDecValue != 0) {
 	    
-		molde = integerDecValue % 16;
-		integerDecValue = integerDecValue / 16;
+		remainder = integerDecValue % 16;
+		integerDecValue /=  16;
 		
 
-		switch (molde) {
+		switch (remainder) {
 		case 0:
-			returnConversionHexForDec += '0';
+			decimalToHex += '0';
 			break;
 
 		case 1:
-			returnConversionHexForDec += '1';
+			decimalToHex += '1';
 			break;
 
 		case 2:
-			returnConversionHexForDec += '2';
+			decimalToHex += '2';
 			break;
 		case 3:
-			returnConversionHexForDec += '3';
+			decimalToHex += '3';
 			break;
 
 		case 4:
-			returnConversionHexForDec += '4';
+			decimalToHex += '4';
 			break;
 		case 5:
-			returnConversionHexForDec += '5';
+			decimalToHex += '5';
 			break;
 
 		case 6:
-			returnConversionHexForDec += '6';
+			decimalToHex += '6';
 			break;
 		case 7:
-			returnConversionHexForDec += '7';
+			decimalToHex += '7';
 			break;
 
 		case 8:
-			returnConversionHexForDec += '8';
+			decimalToHex += '8';
 			break;
 
 		case 9:
-			returnConversionHexForDec += '9';
+			decimalToHex += '9';
 			break;
 		case 10:
-			returnConversionHexForDec += 'A';
+			decimalToHex += 'A';
 			break;
 
 		case 11:
-			returnConversionHexForDec += 'B';
+			decimalToHex += 'B';
 			break;
 		case 12:
-			returnConversionHexForDec += 'C';
+			decimalToHex += 'C';
 			break;
 
 		case 13:
-			returnConversionHexForDec += 'D';
+			decimalToHex += 'D';
 			break;
 		case 14:
-			returnConversionHexForDec += 'E';
+			decimalToHex += 'E';
 			break;
 
 		case 15:
-			returnConversionHexForDec += +'F';
-			break;
-
-		default:
-			returnConversionHexForDec = +'NULL';
+			decimalToHex += 'F';
 			break;
 		}
-		
-		
-
 	}
 	   
-	   for (int i = returnConversionHexForDec.size() -1; i >= 0; i--) {
+	   for (int i = decimalToHex.size() -1; i >= 0; i--) {
 	   
-		  returnReverseConversionHexForDec += returnConversionHexForDec[i];
+		   reverseDecimalToHex += decimalToHex[i];
 
 	   }
 
-	   return returnReverseConversionHexForDec;
+	   return reverseDecimalToHex;
 }
 
 
 int main() {
 
-	int integerDecValue = 999;
-	std::string ReverseConversionHexForDec{ conversionHexForDec(integerDecValue) };
+	int value = 999;
+	std::string result{ conversionDecToHex(value) };
 	
-	std::cout << "valor: " << ReverseConversionHexForDec << std::endl;
+	std::cout << "valor: " << result << '\n';
 
 	return 0;
 }
