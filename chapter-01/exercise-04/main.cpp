@@ -1,6 +1,9 @@
 #include <iostream>
 #include <string>
 
+/*Write a function that receives an integer. The function must return a string containing the
+hexadecimal representation of the integer.*/
+
 std::string conversionDecToHex(int integerDecValue) {
 
 	std::string decimalToHex;
