@@ -1,154 +1,113 @@
 #include <iostream>
 #include <string>
 
-std::string sumBaseXString(int base, std::string numOneString, std::string numTwoString) {
+/*Write a function that adds two digit strings in base b, where 2 <= b <= 10 . Each string may
+contain as many as 1,000 digits. Return the sum in a string that uses the same number base.*/
 
-    std::string returnSumBaseXString(1000, '0');
+std::string sumBaseXString(unsigned base, std::string numOneString,  std::string numTwoString) {
+		
+		unsigned remainder = 0;
+	    std::string invertedSumString;
+		std::string sumString;
+		unsigned sum = 0;
+		unsigned maxLength = 0;
+		unsigned fillOneStringSize = 0;
+		unsigned fillTwoStringSize = 0;
+		unsigned carry = 0;
 
-    int oneStringCount = 0;
-    int twoStringCount = 0;
-    int sum = 0;
-    int num = 0;
-    int molde = 0;
-    char bitAtual = '0';
-    int i;
+		if (numOneString.size() > numTwoString.size()) {
+			maxLength = numOneString.size();
+			fillTwoStringSize = numOneString.size() - numTwoString.size();
+			
+		}
+		else {
+			maxLength = numTwoString.size();
+			fillOneStringSize = numTwoString.size() - numOneString.size();
+		}
 
-    if (base >= 2 && base <= 10) {
-        
-        for (int j = 0; j < numOneString.size(); j++) {
-            i = 0;
-            for (; i < 2; i++) {
-                if (i / 2 == 0 && !(i == 1)) {
-                    if (oneStringCount < numOneString.size()) {
-                        bitAtual = numOneString[numOneString.size() - 1 - j];
-                        oneStringCount += 1;
-                    }
-                    else {
-                        bitAtual = '0';
-                        oneStringCount += 1;
-                    }
-                }
+		if (maxLength > 1000 || base < 2 || base > 10) {
+			return invertedSumString + '0';
+		}
 
-                else {
-                    if (twoStringCount < numTwoString.size()) {
-                        bitAtual = numTwoString[numTwoString.size() - 1 - j];
-                        twoStringCount += 1;
-                    }
-                    else {
-                        bitAtual = '0';
-                        twoStringCount += 1;
-                    }
-                }
+		std::string numOneStringFinal(fillOneStringSize, '0');
+		std::string numTwoStringFinal(fillTwoStringSize, '0');
 
-                switch (bitAtual) {
-                case '1':
-                    num = 1;
-                    break;
+		numOneStringFinal += numOneString;
+		numTwoStringFinal += numTwoString;
+		
 
-                case '2':
-                    num = 2;
-                    break;
+		for (unsigned i = 0; i < maxLength; i++) {
+				
+			    sum = (numOneStringFinal[numOneStringFinal.size() - i - 1] - '0') + (numTwoStringFinal[numTwoStringFinal.size() - i - 1] - '0') + carry;
+			
+				if (sum > (base -1)) {
+					carry = 1;
+				} else {
+					carry = 0;
+				}
 
-                case '3':
-                    num = 3;
-                    break;
-                case '4':
-                    num = 4;
-                    break;
+				remainder = sum % base;
 
-                case '5':
-                    num = 5;
-                    break;
+				switch(remainder){
+				case 0:
+					sumString += '0';
+					break;
+				case 1:
+					sumString += '1';
+					break;
+				case 2:
+					sumString += '2';
+					break;
+				case 3:
+					sumString += '3';
+					break;
+				case 4:
+					sumString += '4';
+					break;
+				case 5:
+					sumString += '5';
+					break;
+				case 6:
+					sumString += '6';
+					break;
+				case 7:
+					sumString += '7';
+					break;
+				case 8:
+					sumString += '8';
+					break;
+				case 9:
+					sumString += '9';
+					break;
+				}
 
-                case '6':
-                    num = 6;
-                    break;
-                case '7':
-                    num = 7;
-                    break;
+				if (carry == 1 && i == maxLength - 1) {
+					sumString += '1';
+				}
 
-                case '8':
-                    num = 8;
-                    break;
+			}   
 
-                case '9':
-                    num = 9;
-                    break;
-                default:
-                    num = 0;
-                    break;
 
-                }
-                sum += num;
-            }
-            molde = sum % base;
 
-            switch (molde) {
-            case 1:
-                returnSumBaseXString[returnSumBaseXString.size()-j-1] = '1';
-                break;
+		for (unsigned j = 0; j < sumString.size(); j++) {
 
-            case 2:
-                returnSumBaseXString[returnSumBaseXString.size()-j-1] = '2';
-                break;
+			invertedSumString += sumString[sumString.size() - j - 1];
 
-            case 3:
-                returnSumBaseXString[returnSumBaseXString.size()-j-1] = '3';
-                break;
-            case 4:
-                returnSumBaseXString[returnSumBaseXString.size()-j-1] = '4';
-                break;
+		}
 
-            case 5:
-                returnSumBaseXString[returnSumBaseXString.size()-j-1] = '5';
-                break;
-
-            case 6:
-                returnSumBaseXString[returnSumBaseXString.size()-j-1] = '6';
-                break;
-            case 7:
-                returnSumBaseXString[returnSumBaseXString.size()-j-1] = '7';
-                break;
-
-            case 8:
-                returnSumBaseXString[returnSumBaseXString.size()-j-1] = '8';
-                break;
-
-            case 9:
-                returnSumBaseXString[returnSumBaseXString.size()-j-1] = '9';
-                break;
-            default:
-                returnSumBaseXString[returnSumBaseXString.size()-j-1] = '0';
-                break;
-            }
-
-            if (sum > base-1) {
-                sum = 1;
-            }
-            else {
-                sum = 0;
-            }
-
-            if (oneStringCount >= numOneString.size() && twoStringCount >= numTwoString.size() && sum == 1) {
-                returnSumBaseXString[returnSumBaseXString.size() - j - 2] = '1';
-            }
-
-        }
-    }
-        return returnSumBaseXString;
-    
+        return invertedSumString;
 }
 
 
 	int main() {
 
 
-	std::string numOne = "99999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999";
-    std::string numTwo = "999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999";
-	int base = 10;
-	std::string sumBaseXStringPrint =  sumBaseXString(base, numOne, numTwo);
+	std::string numOneString = "9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999";
+    std::string numTwoString = "9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999";
+	unsigned base = 10;
+	std::string result =  sumBaseXString(base, numOneString, numTwoString);
 
-	std::cout << "valor: " << sumBaseXStringPrint << "\n";
+	std::cout << "valor: " << result << "\n";
 
 	return 0;
 }
